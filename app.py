@@ -8,12 +8,15 @@ import glob
 import re
 import numpy as np
 import tensorflow as tf
-from waitress import serve
 
 
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.2
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
 # Keras
 import keras.applications.resnet_v2
 import tensorflow
@@ -27,8 +30,8 @@ from tensorflow.keras.preprocessing import image
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
-import streamlit as st
 
+# from gevent.pywsgi import WSGIServer
 
 # Define a flask app
 app = Flask(__name__)
@@ -46,9 +49,15 @@ def model_predict(img_path, model):
 
     # Preprocessing the image
     x = image.img_to_array(img)
+    # x = np.true_divide(x, 255)
     ## Scaling
     x = x / 255
     x = np.expand_dims(x, axis=0)
+
+    # Be careful how your trained model deals with the input
+    # otherwise, it won't make correct prediction!
+    # x = preprocess_input(x)
+
     preds = model.predict(x)
     preds = np.argmax(preds, axis=1)
     if preds == 0:
@@ -89,5 +98,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    #serve(app, host='0.0.0.0', port=8080)
     app.run(port=5001, debug=True)

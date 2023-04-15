@@ -1,10 +1,6 @@
 Flask
 keras
 numpy
-Pillow
-streamlit
 tensorflow
-tensorflow_intel
-waitress
 Werkzeug
 gunicorn
