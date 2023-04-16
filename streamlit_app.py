@@ -28,8 +28,8 @@ def model_predict(img_path, model):
 
 # Define the Streamlit app
 def app():
-    st.set_page_config(page_title='Cotton Plant Disease Classification App')
-    st.title('Cotton Plant Disease Classification App')
+    st.set_page_config(page_title='Cotton Plant Disease Classification')
+    st.title('Cotton Plant Disease Classification')
 
     # Add file uploader
     uploaded_file = st.file_uploader('Choose an image', type=['jpg', 'jpeg', 'png'])
@@ -39,11 +39,9 @@ def app():
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', use_column_width=True)
         st.write('')
-        st.write('Classifying...')
-        prediction = model_predict(uploaded_file, model)
+        with st.spinner('Classifying...'):
+            prediction = model_predict(uploaded_file, model)
         st.success(f'Prediction: {prediction}')
-
-
 
 
 if __name__ == '__main__':
