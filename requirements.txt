@@ -1,10 +1,9 @@
-Flask
-keras
-numpy
-Pillow
-streamlit
+Flask==2.2.2
+keras==2.11.0
+numpy==1.24.0
+Pillow==9.4.0
+streamlit==1.20.0
 tensorflow==2.11.0
 tensorflow_intel==2.11.0
-waitress
-Werkzeug
-gunicorn
+waitress==2.1.2
+Werkzeug==2.2.2
