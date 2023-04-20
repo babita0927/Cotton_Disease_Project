@@ -18,12 +18,8 @@ def model_predict(img_path, model):
     preds = np.argmax(preds, axis=1)
     if preds == 0:
         preds = "The leaf is diseased cotton leaf"
-    elif preds == 1:
-        preds = "The plant is diseased cotton plant"
-    elif preds == 2:
-        preds = "The leaf is fresh cotton leaf"
     else:
-        preds = "The plant is fresh cotton plant"
+        preds = "The leaf is fresh cotton leaf"
     return preds
 
 # Define the Streamlit app
